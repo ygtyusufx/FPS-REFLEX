@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Benim Oyun Sitem</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #111827;
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            background: #1f2937;
+            padding: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        header p {
+            color: #9ca3af;
+        }
+
+        .games {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .game-card {
+            background: #1f2937;
+            width: 280px;
+            padding: 25px;
+            border-radius: 18px;
+        }
+
+        .game-card h2 {
+            margin-top: 0;
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 22px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #3b82f6;
+            color: white;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        #gameScreen {
+            display: none;
+            padding: 20px;
+        }
+
+        #gameArea {
+            position: relative;
+            width: min(800px, 95vw);
+            height: 500px;
+            margin: 20px auto;
+            background: #1f2937;
+            border: 2px solid #374151;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        #star {
+            position: absolute;
+            display: none;
+            border: none;
+            background: none;
+            font-size: 45px;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        #backButton {
+            background: #6b7280;
+        }
+
+        #backButton:hover {
+            background: #4b5563;
+        }
+
+        #score {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ANA SAYFA -->
+    <header id="home">
+        <h1>FPS REFLEX</h1>
+    </header>
+
+    <main class="games" id="gameList">
+
+        <div class="game-card">
+            <h2>⭐ Yıldızı Yakala</h2>
+
+            <p>
+                Yıldıza mümkün olduğunca hızlı tıkla!
+            </p>
+
+            <button id="playButton">
+                ▶ Oyna
+            </button>
+        </div>
+
+    </main>
+
+    <!-- OYUN EKRANI -->
+    <section id="gameScreen">
+
+        <h1>⭐ Yıldızı Yakala</h1>
+
+        <p>
+            Skor:
+            <span id="score">0</span>
+        </p>
+
+        <div id="gameArea">
+
+            <button id="star">
+                ⭐
+            </button>
+
+        </div>
+
+        <button id="backButton">
+            ← Ana Menü
+        </button>
+
+    </section>
+
+    <script>
+
+        // HTML elemanlarını alıyoruz
+
+        const playButton = document.getElementById("playButton");
+
+        const gameScreen = document.getElementById("gameScreen");
+
+        const gameList = document.getElementById("gameList");
+
+        const home = document.getElementById("home");
+
+        const gameArea = document.getElementById("gameArea");
+
+        const star = document.getElementById("star");
+
+        const scoreText = document.getElementById("score");
+
+        const backButton = document.getElementById("backButton");
+
+
+        // Skor
+
+        let score = 0;
+
+
+        // Oyunu başlat
+
+        playButton.addEventListener("click", function() {
+
+            score = 0;
+
+            scoreText.textContent = score;
+
+            home.style.display = "none";
+
+            gameList.style.display = "none";
+
+            gameScreen.style.display = "block";
+
+            star.style.display = "block";
+
+            moveStar();
+
+        });
+
+
+        // Yıldızı hareket ettir
+
+        function moveStar() {
+
+            const maxX = gameArea.clientWidth - star.offsetWidth;
+
+            const maxY = gameArea.clientHeight - star.offsetHeight;
+
+            const x = Math.random() * maxX;
+
+            const y = Math.random() * maxY;
+
+            star.style.left = x + "px";
+
+            star.style.top = y + "px";
+
+        }
+
+
+        // Yıldıza tıklanınca
+
+        star.addEventListener("click", function() {
+
+            score++;
+
+            scoreText.textContent = score;
+
+            moveStar();
+
+        });
+
+
+        // Ana menüye dön
+
+        backButton.addEventListener("click", function() {
+
+            gameScreen.style.display = "none";
+
+            home.style.display = "block";
+
+            gameList.style.display = "flex";
+
+            star.style.display = "none";
+
+        });
+
+    </script>
+
+</body>
+</html>
